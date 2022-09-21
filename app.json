@@ -1,0 +1,41 @@
+{
+  "name": "distalk",
+  "description": "Discord TTS on heroku, Powered by VOICEVOX API.",
+  "repository": "https://github.com/soundofhorizon/voicevox",
+  "keywords": ["python", "discord", "bot"],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-python.git"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+    },
+    {
+      "url": "https://github.com/xrisk/heroku-opus.git"
+    }
+  ],
+  "env": {
+    "DISCORD_BOT_TOKEN": {
+            "description": "ボットのトークンを入力します。"
+    },
+    "DISCORD_BOT_PREFIX": {
+            "description": "ボットのプレフィックスを入力します。空欄にすると「🦑」に設定されます。",
+            "required": false
+    },
+    "VOICEVOX_KEY": {
+      "description": "VOICEVOXのKEYを入力します。"
+    },
+    "VOICEVOX_SPEAKER": {
+      "description": "VOICEVOXの話者IDを入力します。空欄にすると「四国めたん ノーマル」に設定されます",
+      "required": false
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "python init_dict.py"
+  }
+}
