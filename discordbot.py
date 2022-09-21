@@ -212,6 +212,8 @@ async def on_message(message):
                             result = cur.fetchone()
                             voicevox_speaker = result[1]
 
+                    print(text)
+
                     mp3url = f'https://api.su-shiki.com/v2/voicevox/audio/?text={text}&key={voicevox_key}&speaker={voicevox_speaker}&intonationScale=1'
                     while message.guild.voice_client.is_playing():
                         await asyncio.sleep(0.5)
@@ -238,7 +240,10 @@ async def on_voice_state_update(member, before, after):
                 sql = f'SELECT * FROM voice_setting WHERE discord_id = {member.id}'
                 cur.execute(sql)
                 result = cur.fetchone()
-                voicevox_speaker = result[1]
+                try:
+                    voicevox_speaker = result[1]
+                except TypeError:
+                    pass
         if before.channel is None:
             if member.id == client.user.id:
                 presence = f'{prefix}ヘルプ | {len(client.voice_clients)}/{len(client.guilds)}サーバー'
