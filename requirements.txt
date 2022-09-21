@@ -1,5 +1,4 @@
 emoji
-psycopg2
 psycopg2-binary>=2.9.3
 git+https://github.com/Pycord-Development/pycord
 beautifulsoup4>=4.9.1
